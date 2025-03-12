@@ -1,6 +1,7 @@
 package app
 
 import (
+	"github.com/bps-kota-bontang/fiber-starter/config"
 	"github.com/bps-kota-bontang/fiber-starter/handlers"
 	"github.com/bps-kota-bontang/fiber-starter/routes"
 
@@ -9,9 +10,14 @@ import (
 
 // NewFiberApp initializes the Fiber application with all necessary routes
 func NewFiberApp(
+	appConfig config.AppConfig,
 	userHandler handlers.UserHandler,
 ) *fiber.App {
-	app := fiber.New()
+	app := fiber.New(
+		fiber.Config{
+			AppName: appConfig.AppName,
+		},
+	)
 
 	// API Versioning
 	api := app.Group("/api")

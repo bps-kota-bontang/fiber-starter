@@ -4,12 +4,11 @@
 package di
 
 import (
-	"github.com/gofiber/fiber/v2"
 	"github.com/google/wire"
 )
 
 // Initialize App
-func InitializeApp() (*fiber.App, error) {
+func InitializeApp() (*AppContainer, error) {
 	wire.Build(AppSet)
-	return &fiber.App{}, nil
+	return &AppContainer{}, nil
 }

@@ -46,7 +46,7 @@ func (b *UserServiceImpl) GetAllUsers() ([]dto.UserResponse, error) {
 		return nil, err
 	}
 
-	return utils.ToUserResponses(users), nil
+	return utils.ToResponses(users, utils.ToUserResponse), nil
 }
 
 func (b *UserServiceImpl) GetUserById(id uint) (*dto.UserResponse, error) {

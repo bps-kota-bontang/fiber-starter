@@ -9,4 +9,4 @@ import (
 )
 
 // Wire Set for Database
-var DBSet = wire.NewSet(database.ConnectDB, ConfigSet)
+var DBSet = wire.NewSet(database.ConnectDB)

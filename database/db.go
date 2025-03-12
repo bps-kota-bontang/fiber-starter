@@ -5,12 +5,13 @@ import (
 	"log"
 
 	"github.com/bps-kota-bontang/fiber-starter/config"
+	"github.com/bps-kota-bontang/fiber-starter/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
-func ConnectDB(cfg *config.ConfigDatabase) (*gorm.DB, error) {
+func ConnectDB(cfg *config.DatabaseConfig) (*gorm.DB, error) {
 	var dsn string
 	var dialector gorm.Dialector
 
@@ -35,5 +36,14 @@ func ConnectDB(cfg *config.ConfigDatabase) (*gorm.DB, error) {
 		return nil, err
 	}
 
+	if err := db.AutoMigrate(
+		&models.User{},
+	); err != nil {
+		log.Fatalf("Failed to migrate database: %v", err)
+		return nil, err
+	}
+
+	log.Println("Database connected and migrated successfully!")
 	return db, nil
+
 }

@@ -5,7 +5,7 @@ import (
 )
 
 // Cloudflare menyimpan konfigurasi Cloudflare R2
-type ConfigDatabase struct {
+type DatabaseConfig struct {
 	DBHost     string
 	DBPort     string
 	DBUser     string
@@ -14,8 +14,8 @@ type ConfigDatabase struct {
 	DBDriver   string
 }
 
-func LoadConfigDatabase() *ConfigDatabase {
-	return &ConfigDatabase{
+func LoadDatabaseConfig() *DatabaseConfig {
+	return &DatabaseConfig{
 		DBHost:     os.Getenv("DB_HOST"),
 		DBPort:     os.Getenv("DB_PORT"),
 		DBUser:     os.Getenv("DB_USER"),

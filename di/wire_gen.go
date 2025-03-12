@@ -14,15 +14,15 @@ import (
 	"github.com/bps-kota-bontang/fiber-starter/repositories"
 	"github.com/bps-kota-bontang/fiber-starter/services"
 	"github.com/bps-kota-bontang/fiber-starter/validator"
-	"github.com/gofiber/fiber/v2"
 )
 
 // Injectors from wire.go:
 
 // Initialize App
-func InitializeApp() (*fiber.App, error) {
-	configDatabase := config.LoadConfigDatabase()
-	db, err := database.ConnectDB(configDatabase)
+func InitializeApp() (*AppContainer, error) {
+	appConfig := config.LoadAppConfig()
+	databaseConfig := config.LoadDatabaseConfig()
+	db, err := database.ConnectDB(databaseConfig)
 	if err != nil {
 		return nil, err
 	}
@@ -30,6 +30,10 @@ func InitializeApp() (*fiber.App, error) {
 	userService := services.NewUserService(userRepository)
 	validate := validator.ProvideValidator()
 	userHandler := handlers.NewUserHandler(userService, validate)
-	fiberApp := app.NewFiberApp(userHandler)
-	return fiberApp, nil
+	fiberApp := app.NewFiberApp(appConfig, userHandler)
+	appContainer := &AppContainer{
+		App:    fiberApp,
+		Config: appConfig,
+	}
+	return appContainer, nil
 }

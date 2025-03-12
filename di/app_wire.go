@@ -10,4 +10,8 @@ import (
 )
 
 // Wire Set for App dependencies
-var AppSet = wire.NewSet(app.NewFiberApp, HandlerSet)
+var AppSet = wire.NewSet(app.NewFiberApp,
+	ConfigSet,
+	HandlerSet,
+	wire.Struct(new(AppContainer), "*"),
+)

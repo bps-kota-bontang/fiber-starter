@@ -9,4 +9,4 @@ import (
 )
 
 // Wire Set for Database
-var ConfigSet = wire.NewSet(config.LoadConfigDatabase)
+var ConfigSet = wire.NewSet(config.LoadAppConfig, config.LoadDatabaseConfig)
